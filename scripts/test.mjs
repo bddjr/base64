@@ -1,26 +1,26 @@
-import Base64NoUpperCase from '../dist/main.js'
+import base64 from '../dist/main.js'
 
 let allSuccess = true
 
 /**
- * @param {typeof Base64NoUpperCase} Base64NoUpperCase 
+ * @param {typeof base64} base64 
  */
-function test(Base64NoUpperCase) {
+function test(base64) {
     /**
      * @param {string | Uint8Array} v
      */
     function test2(v) {
         console.log('------------------')
         console.log(v)
-        const enc = Base64NoUpperCase.encode(v)
+        const enc = base64.encode(v)
         console.log(enc)
         var isEqual = false
         if (typeof v == 'string') {
-            const dec = Base64NoUpperCase.decodeToString(enc)
+            const dec = base64.decodeToString(enc)
             console.log(dec)
             isEqual = dec === v
         } else {
-            const dec = Base64NoUpperCase.decode(enc)
+            const dec = base64.decode(enc)
             console.log(dec)
             isEqual = (() => {
                 if (dec.length !== v.length) return false
@@ -46,7 +46,7 @@ function test(Base64NoUpperCase) {
     test2(crypto.getRandomValues(new Uint8Array(16)))
 }
 
-test(Base64NoUpperCase);
+test(base64);
 
 console.log('------------------')
 console.log('allSuccess:', allSuccess)
