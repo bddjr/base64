@@ -1,0 +1,41 @@
+{
+  "name": "@bddjr/base64",
+  "version": "1.0.0",
+  "description": "Base64 encode, decode and decodeToString.",
+  "type": "module",
+  "main": "./dist/main.js",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "test": "node --run build && node scripts/test.mjs && node scripts/test-buffer.mjs && node scripts/test-btoa.mjs",
+    "prepublishOnly": "node --run test"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bddjr/base64-js.git"
+  },
+  "keywords": [
+    "base64",
+    "base",
+    "encode",
+    "decode",
+    "atob",
+    "btoa",
+    "byte",
+    "bytes",
+    "typedarray",
+    "uint8array"
+  ],
+  "author": "bddjr",
+  "license": "Unlicense",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@bddjr/rimraf": "^0.1.1",
+    "@types/node": "^24.12.2",
+    "typescript": "^6.0.3"
+  }
+}

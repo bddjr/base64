@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "types": ["node"],
+    "lib": ["ESNext", "DOM"],
+    "skipLibCheck": true,
+    "rootDir": ".",
+    "outDir": "dist",
+    "declaration": true,
+    "strict": true
+  },
+  "include": ["main.ts"],
+  "exclude": ["dist", "node_modules"]
+}
