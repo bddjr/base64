@@ -14,7 +14,7 @@ export const _base64ToBytes: (base64: string) => Uint8Array<ArrayBuffer> = (
                 let l = i.length
                 if (i.charCodeAt(l - 1) == 61)
                     l -= 1 + ((i.charCodeAt(l - 2) == 61) as any)
-                const b = new Uint8Array(l * 3 >>> 2)
+                const b = new Uint8Array(l / 4 * 3)
                 Buffer.prototype.base64Write.call(b, i)
                 return b
             }
