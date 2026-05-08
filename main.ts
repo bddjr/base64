@@ -1,4 +1,4 @@
-const _toBase64: (input: Uint8Array) => string = (
+export const _bytesToBase64: (bytes: Uint8Array) => string = (
     typeof Uint8Array.prototype.toBase64 == 'function' // Node.js v25
         ? i => Uint8Array.prototype.toBase64.call(i)
         : typeof Buffer == 'function' && Buffer.prototype && typeof Buffer.prototype.base64Slice == 'function'
@@ -6,9 +6,9 @@ const _toBase64: (input: Uint8Array) => string = (
             : i => btoa(String.fromCharCode(...i))
 )
 
-const _fromBase64: (input: string) => Uint8Array<ArrayBuffer> = (
+export const _base64ToBytes: (base64: string) => Uint8Array<ArrayBuffer> = (
     typeof Uint8Array.fromBase64 == 'function' // Node.js v25
-        ? Uint8Array.fromBase64
+        ? i => Uint8Array.fromBase64(i)
         : typeof Buffer == 'function' && Buffer.prototype && typeof Buffer.prototype.base64Write == 'function'
             ? i => {
                 let l = i.length
@@ -22,15 +22,15 @@ const _fromBase64: (input: string) => Uint8Array<ArrayBuffer> = (
 )
 
 export function encode(input: Uint8Array | string): string {
-    return _toBase64(
+    return _bytesToBase64(
         typeof input == 'string'
             ? new TextEncoder().encode(input)
             : input
     )
 }
 
-export function decode(input: string): Uint8Array<ArrayBuffer> {
-    return _fromBase64('' + input)
+export function decode(base64: string): Uint8Array<ArrayBuffer> {
+    return _base64ToBytes('' + base64)
 }
 
 export function decodeToString(input: string, textDecoder = new TextDecoder()): string {
@@ -38,6 +38,8 @@ export function decodeToString(input: string, textDecoder = new TextDecoder()): 
 }
 
 const base64 = {
+    _bytesToBase64,
+    _base64ToBytes,
     encode,
     decode,
     decodeToString
