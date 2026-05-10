@@ -3,7 +3,7 @@ export const _bytesToBase64: (bytes: Uint8Array) => string = (
         ? i => Uint8Array.prototype.toBase64.call(i)
         : typeof Buffer == 'function' && Buffer.prototype && typeof Buffer.prototype.base64Slice == 'function'
             ? i => Buffer.prototype.base64Slice.call(i) as string
-            : i => btoa(String.fromCharCode(...i))
+            : i => btoa(Array.from(i, b => String.fromCharCode(b)).join(''))
 )
 
 export const _base64ToBytes: (base64: string) => Uint8Array<ArrayBuffer> = (
