@@ -1,16 +1,30 @@
 {
   "name": "@bddjr/base64",
-  "version": "1.0.3",
-  "description": "Base64 encode, decode and decodeToString.",
+  "version": "1.1.0",
+  "description": "A high-performance Base64 and Base64url library, featuring automatic native API acceleration, and support for custom alphabets.",
   "type": "module",
   "main": "./dist/main.js",
+  "exports": {
+    ".": {
+      "types": "./dist/main.d.ts",
+      "default": "./dist/main.js"
+    },
+    "./make": {
+      "types": "./dist/make.d.ts",
+      "default": "./dist/make.js"
+    },
+    "./type": {
+      "types": "./type.d.ts"
+    }
+  },
   "scripts": {
     "build": "rimraf dist && tsc",
-    "test": "node --run build && node scripts/test.mjs && node scripts/test-buffer.mjs && node scripts/test-btoa.mjs",
+    "test": "node --run build && node scripts/test.mjs && node scripts/test-buffer.mjs && node scripts/test-fallback.mjs",
     "prepublishOnly": "node --run test"
   },
   "files": [
-    "dist"
+    "dist",
+    "type.d.ts"
   ],
   "repository": {
     "type": "git",
@@ -26,7 +40,9 @@
     "byte",
     "bytes",
     "typedarray",
-    "uint8array"
+    "uint8array",
+    "performance",
+    "zero-dependency"
   ],
   "author": "bddjr",
   "license": "Unlicense",

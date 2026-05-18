@@ -3,17 +3,23 @@ import base64 from '../dist/main.js'
 let allSuccess = true
 
 /**
- * @param {typeof base64} base64 
+ * @param {{
+ *  encode: typeof base64.encode
+ *  decode: typeof base64.decode
+ *  decodeToString: typeof base64.decodeToString
+ * }} base64 
+ * @param {boolean} omitPadding 
  */
-function test(base64) {
+function test(base64, omitPadding) {
     /**
      * @param {string | Uint8Array} v
      */
     function test2(v) {
         console.log('------------------')
         console.log(v)
-        const enc = base64.encode(v)
+        const enc = base64.encode(v, omitPadding)
         console.log(enc)
+        if (omitPadding && enc.endsWith('=')) process.exit(1);
         var isEqual = false
         if (typeof v == 'string') {
             const dec = base64.decodeToString(enc)
@@ -24,7 +30,7 @@ function test(base64) {
             console.log(dec)
             isEqual = (() => {
                 if (dec.length !== v.length) return false
-                for (const i in dec) {
+                for (const i of dec.keys()) {
                     if (dec[i] !== v[i]) return false
                 }
                 return true
@@ -46,7 +52,15 @@ function test(base64) {
     test2(crypto.getRandomValues(new Uint8Array(16)))
 }
 
-test(base64);
+for (const omitPadding of [false, true]) {
+    test(base64, omitPadding);
+    test({
+        encode: base64.encodeurl,
+        decode: base64.decodeurl,
+        decodeToString: base64.decodeurlToString,
+    }, omitPadding);
+}
+
 
 console.log('------------------')
 console.log('allSuccess:', allSuccess)

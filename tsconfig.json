@@ -1,14 +1,16 @@
 {
   "compilerOptions": {
     "target": "es2015",
+    "module": "node16",
     "types": ["node"],
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
-    "rootDir": ".",
+    "rootDir": "src",
     "outDir": "dist",
     "declaration": true,
+    "declarationDir": "dist",
     "strict": true
   },
-  "include": ["main.ts"],
+  "include": ["src/**/*", "type.d.ts"],
   "exclude": ["dist", "node_modules"]
 }
