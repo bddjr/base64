@@ -3,7 +3,7 @@
     "target": "es2015",
     "module": "node16",
     "types": ["node"],
-    "lib": ["ESNext", "DOM"],
+    "lib": ["DOM", "ESNext.typedarrays"],
     "skipLibCheck": true,
     "rootDir": "src",
     "outDir": "dist",
@@ -11,6 +11,6 @@
     "declarationDir": "dist",
     "strict": true
   },
-  "include": ["src/**/*", "type.d.ts"],
+  "include": ["src"],
   "exclude": ["dist", "node_modules"]
 }

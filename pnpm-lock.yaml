@@ -12,8 +12,8 @@ importers:
         specifier: ^0.1.1
         version: 0.1.1
       '@types/node':
-        specifier: ^24.12.2
-        version: 24.12.2
+        specifier: ^20.0.0
+        version: 20.0.0
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -24,25 +24,18 @@ packages:
     resolution: {integrity: sha512-a0Hs06K0CQS3vywqdsU8VwKwTeEWB0dFQ0eOcdemFyGuXqok2e+TfSzUWVq9l4lkItdn2reAydwjEuFHvjttSQ==}
     hasBin: true
 
-  '@types/node@24.12.2':
-    resolution: {integrity: sha512-A1sre26ke7HDIuY/M23nd9gfB+nrmhtYyMINbjI1zHJxYteKR6qSMX56FsmjMcDb3SMcjJg5BiRRgOCC/yBD0g==}
+  '@types/node@20.0.0':
+    resolution: {integrity: sha512-cD2uPTDnQQCVpmRefonO98/PPijuOnnEy5oytWJFPY1N9aJCz2wJ5kSGWO+zJoed2cY2JxQh6yBuUq4vIn61hw==}
 
   typescript@6.0.3:
     resolution: {integrity: sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
-  undici-types@7.16.0:
-    resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
-
 snapshots:
 
   '@bddjr/rimraf@0.1.1': {}
 
-  '@types/node@24.12.2':
-    dependencies:
-      undici-types: 7.16.0
+  '@types/node@20.0.0': {}
 
   typescript@6.0.3: {}
-
-  undici-types@7.16.0: {}

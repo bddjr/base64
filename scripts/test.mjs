@@ -3,6 +3,17 @@ import base64 from '../dist/main.js'
 let allSuccess = true
 
 /**
+ * @param {number} length 
+ */
+function randBytes(length) {
+    const b = new Uint8Array(length)
+    for (let i = b.length; i;) {
+        b[--i] = Math.random() * 256
+    }
+    return b
+}
+
+/**
  * @param {{
  *  encode: typeof base64.encode
  *  decode: typeof base64.decode
@@ -16,10 +27,15 @@ function test(base64, omitPadding) {
      */
     function test2(v) {
         console.log('------------------')
+        console.log('omitPadding:', omitPadding)
         console.log(v)
         const enc = base64.encode(v, omitPadding)
         console.log(enc)
-        if (omitPadding && enc.endsWith('=')) process.exit(1);
+        if (omitPadding || v.length % 3 === 0) {
+            if (enc.endsWith('=')) process.exit(1)
+        } else if (!enc.endsWith('='.repeat(3 - (v.length % 3)))) {
+            process.exit(1)
+        }
         var isEqual = false
         if (typeof v == 'string') {
             const dec = base64.decodeToString(enc)
@@ -36,20 +52,29 @@ function test(base64, omitPadding) {
                 return true
             })()
         }
-        allSuccess &&= isEqual
+        if (!isEqual) allSuccess = false;
         console.log('equal:', isEqual)
         isEqual || process.exit(1)
     }
 
     test2("Hello world!")
+    test2("👋Hello!")
+    test2("👋你好")
+    test2("")
+    test2("1")
+    test2("12")
+    test2("123")
+    test2("1234")
+    test2("12345")
     test2("123456")
     test2("1234567")
     test2("12345678")
-    test2(crypto.getRandomValues(new Uint8Array(12)))
-    test2(crypto.getRandomValues(new Uint8Array(13)))
-    test2(crypto.getRandomValues(new Uint8Array(14)))
-    test2(crypto.getRandomValues(new Uint8Array(15)))
-    test2(crypto.getRandomValues(new Uint8Array(16)))
+    test2("12345678 ")
+    test2(randBytes(12))
+    test2(randBytes(13))
+    test2(randBytes(14))
+    test2(randBytes(15))
+    test2(randBytes(16))
 }
 
 for (const omitPadding of [false, true]) {
@@ -61,6 +86,21 @@ for (const omitPadding of [false, true]) {
     }, omitPadding);
 }
 
+console.log('------------------')
+console.log(base64.decode('x\t\n\f\r x'))
+console.log(base64.decode('xx\t\n\f\r '))
+
+for (const str of ['x', 'x===', '?', 'vvvvX', 'xx==x', 'xx==xx', 'xx=']) {
+    console.log('------------------')
+    console.log(`decode invalid base64: ${str}`)
+    try {
+        const v = base64.decode(str)
+        console.log(v)
+        process.exit(1)
+    } catch (e) {
+        console.log(e)
+    }
+}
 
 console.log('------------------')
 console.log('allSuccess:', allSuccess)

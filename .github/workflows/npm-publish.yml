@@ -16,7 +16,7 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: "26"
+          node-version: "latest"
           check-latest: true
 
       - name: Setup pnpm
