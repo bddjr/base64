@@ -22,7 +22,9 @@ export const _bytesToBase64: bytesToBase64Func = /*@__PURE__*/ (
         ? (bytes, omitPadding) => Uint8Array.prototype.toBase64.call(bytes, { omitPadding })
         : typeof Buffer == 'function' && Buffer.prototype && typeof Buffer.prototype.base64Slice == 'function'
             ? (bytes, omitPadding) => {
-                const out = Buffer.prototype.base64Slice.call(bytes) as string // has padding
+                // Deno: `Buffer.prototype.base64Slice` throws error when arguments are omitted
+                // https://github.com/denoland/deno/issues/34286
+                const out = Buffer.prototype.base64Slice.call(bytes, 0, bytes.length) as string // has padding
                 return omitPadding && out.charCodeAt(out.length - 1) === 61
                     //@ts-ignore
                     ? out.slice(0, -1 - (out.charCodeAt(out.length - 2) === 61))
